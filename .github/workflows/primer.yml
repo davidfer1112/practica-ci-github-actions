@@ -21,3 +21,5 @@ jobs:
       - name: Hola Mundo
         # comando que se debe ejecutar
         run: echo "Hola Mundo"
+      - name: Verificar versión de Node.js
+        run: node --version
