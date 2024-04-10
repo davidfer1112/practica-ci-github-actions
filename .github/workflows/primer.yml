@@ -1,1 +1,23 @@
+# nombre del workflow
 name: primer YML
+
+# cuando se tiene que activar el workflow
+on:
+  # escucha los eventos de push
+  push:
+    # solo se activa cuando se hace push a la rama main
+    branches:
+      - main
+
+# indica los trabajos que se deben ejecutar
+jobs:
+  # nombre del trabajo
+  hello_world:
+    # donde se ejecuta el trabajo
+    runs-on: ubuntu-latest
+    # pasos que se deben ejecutar
+    steps:
+      # nombre del paso
+      - name: Hola Mundo
+        # comando que se debe ejecutar
+        run: echo "Hola Mundo"
