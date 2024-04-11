@@ -1,0 +1,30 @@
+name: PipeLine de Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Traer al repositorio a la maquina virtual
+      - name: Checkout
+        # Usar la acción de checkout (Marketplace de GitHub)
+        uses: actions/checkout@v4
+        # No traer historial de git, solo el último commit
+        with:
+          fetch-depth: 0
+      # Configurar Node.js
+      - name: Entorno Node
+        # Usar la acción de setup-node (Marketplace de GitHub)
+        uses: actions/setup-node@v4
+        # Configurar la versión de Node.js
+        with:
+          node-version: '20'
+      # Instalar dependencias
+      - name: Instalar dependencias
+        run: npm install
+      - name: lint
+        run: npm run lint
