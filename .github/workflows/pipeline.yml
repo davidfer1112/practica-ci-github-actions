@@ -9,7 +9,7 @@ on:
 jobs:
 
   lint:
-    runs-on: ubuntu-18-04
+    runs-on: ubuntu-latest
     steps:
       # Traer al repositorio a la maquina virtual
       - name: Checkout
@@ -33,6 +33,7 @@ jobs:
         run: npm run lint
 
   build:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       # Traer al repositorio a la maquina virtual
