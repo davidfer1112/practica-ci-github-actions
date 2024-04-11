@@ -58,7 +58,7 @@ jobs:
         run: npm run build
 
   deploy:
-    needs: [lint,build]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       # Traer al repositorio a la maquina virtual
