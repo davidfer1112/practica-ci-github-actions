@@ -5,8 +5,35 @@ on:
     branches:
       - main
 
+    
 jobs:
-  deploy:
+
+  lint:
+    runs-on: ubuntu-18-04
+    steps:
+      # Traer al repositorio a la maquina virtual
+      - name: Checkout
+        # Usar la acción de checkout (Marketplace de GitHub)
+        uses: actions/checkout@v4
+        # No traer historial de git, solo el último commit
+        with:
+          fetch-depth: 0
+      # Configurar Node.js
+      - name: Entorno Node
+        # Usar la acción de setup-node (Marketplace de GitHub)
+        uses: actions/setup-node@v4
+        # Configurar la versión de Node.js
+        with:
+          node-version: '20'
+      # Instalar dependencias
+      - name: Instalar dependencias
+        run: npm install
+      # Asegura que el codigo es correcto
+      - name: lint
+        run: npm run lint
+
+  build:
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
       # Traer al repositorio a la maquina virtual
@@ -25,7 +52,32 @@ jobs:
           node-version: '20'
       # Instalar dependencias
       - name: Instalar dependencias
-        run: npm ci
+        run: npm install
+      # Construir la aplicación
+      - name: Construir
+        run: npm run build
+
+  deploy:
+    needs: [lint,build]
+    runs-on: ubuntu-latest
+    steps:
+      # Traer al repositorio a la maquina virtual
+      - name: Checkout
+        # Usar la acción de checkout (Marketplace de GitHub)
+        uses: actions/checkout@v4
+        # No traer historial de git, solo el último commit
+        with:
+          fetch-depth: 0
+      # Configurar Node.js
+      - name: Entorno Node
+        # Usar la acción de setup-node (Marketplace de GitHub)
+        uses: actions/setup-node@v4
+        # Configurar la versión de Node.js
+        with:
+          node-version: '20'
+      # Instalar dependencias
+      - name: Instalar dependencias
+        run: npm install
       # Asegura que el codigo es correcto
       - name: lint
         run: npm run lint
