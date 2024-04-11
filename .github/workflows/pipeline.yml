@@ -26,5 +26,9 @@ jobs:
       # Instalar dependencias
       - name: Instalar dependencias
         run: npm install
+      # Asegura que el codigo es correcto
       - name: lint
         run: npm run lint
+      # Construir la aplicación
+      - name: Construir
+        run: npm run build
